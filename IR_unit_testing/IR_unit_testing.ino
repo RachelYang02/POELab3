@@ -9,4 +9,5 @@ void loop() {
   // put your main code here, to run repeatedly:
 r1 = analogRead(A0);
 Serial.println(r1);
+delay(25);
 }
