@@ -44,6 +44,8 @@ void loop() {
   // read from IR sensors
   val_R = analogRead(ir_R) - comp;
   val_L = analogRead(ir_L);
+
+  // print to serial
   Serial.print(val_R);
   Serial.print("\t");
   Serial.println(val_L);
