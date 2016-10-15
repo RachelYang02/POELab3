@@ -10,7 +10,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 // request the DC motor from the motor shield
 // may need to change (1) to whatever port # the motor is connected to
 // M1 = 1, M2 = 2, M3 = 3, M4 = 4
-Adafruit_DCMotor *myMotor_L = AFMS.getMotor(3);
+Adafruit_DCMotor *myMotor_L = AFMS.getMotor(2);
 Adafruit_DCMotor *myMotor_R = AFMS.getMotor(4);
 
 void setup() {
@@ -27,7 +27,7 @@ void loop() {
   // run(direction)
   // direction can be FORWARD, BACKWARD, or RELEASE
   // as of right now, seems to be that FORWARD is actually, in our perspective, a backwards motion. Keep in mind.
-  myMotor_L->run(FORWARD);
-  myMotor_R->run(FORWARD);
+  myMotor_L->run(BACKWARD);
+  myMotor_R->run(BACKWARD);
 
 }
