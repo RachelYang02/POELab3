@@ -24,21 +24,22 @@ const int ir_L = A1;
 int val_R = 0;
 int val_L = 0;
 
+
 ////////// TUNING PARAMETERS //////////
 // there seems to be some discontinuity between the sensor
 // readings, this compensation aligns them 
 int comp = -15;
 int sense_buffer = 5;
 
+
 void setup() {
   Serial.begin(9600);
   // starts motor shield
   AFMS.begin();
   // sets default speed of the motor
-  // ranges from 0 (stopped) to 255 (full speed)
   myMotor_R->setSpeed(speed_R);
   myMotor_L->setSpeed(speed_L); 
-  // Due to wiring issues, "BACKWARD" = "FORWARD" for us
+  // Due to wiring choices, "BACKWARD" = "FORWARD" for us
   myMotor_R->run(BACKWARD);
   myMotor_L->run(BACKWARD);
 }
@@ -46,7 +47,7 @@ void setup() {
 
 void loop() {
   // read from IR sensors
-  val_R = analogRead(ir_R)-comp;
+  val_R = analogRead(ir_R) - comp;
   val_L = analogRead(ir_L);
 
   // print IR values to serial
@@ -54,22 +55,25 @@ void loop() {
   Serial.print("\t");
   Serial.println(val_L);
   
-  // find new values for speed
-  // if sensor values are equal, go forward
+  // Find new values for speed
+  // The reading over electrical tape 
+  // is less than the reading over tile
+  
   if (val_L == val_R){
+    // if sensor values are equal, go forward
     speed_L = 20;
     speed_R = 20;
     }
-   //if right > left, go left
   else if (val_R > val_L + sense_buffer){
+    //if right > left, go left
     speed_L = 10;
     speed_R = 50;
     }
-  //if left > right, go right
   else if (val_L > val_R + sense_buffer){
+    //if left > right, go right
     speed_L = 50;
     speed_R = 10;
-  }
+    }
 
   // update motor speed
   myMotor_L->setSpeed(speed_L);
